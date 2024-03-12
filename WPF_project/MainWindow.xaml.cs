@@ -22,15 +22,11 @@ namespace WPF_project
     /// </summary>
     public partial class MainWindow : Window
     {
-        int currentRow = 1;
         Label[] labelArray = null;
         Label currentLabel;
         public MainWindow()
         {
             InitializeComponent();
-
-            //CreateNewRow(0);
-            
         }
 
         private void reverseButton_Click(object sender, RoutedEventArgs e)
@@ -43,55 +39,9 @@ namespace WPF_project
             }
         }
 
-        private void inputTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            //if(e.Key == Key.Space) 
-            //{
-            //    CreateNewRow();
-            //}
-            //else
-            //{
-            //    UpdateList(((Char)e.Key));
-            //}
-
-            //if (e.Key == Key.Space)
-            //{
-            //    CreateNewRow();
-            //}
-            //else if (e.Key >= Key.A && e.Key <= Key.Z)
-            //{
-            //    char character = (char)('A' + (e.Key - Key.A));
-            //    UpdateList(character);
-            //}
-            //else if (e.Key >= Key.D0 && e.Key <= Key.D9)
-            //{
-            //    char character = (char)('0' + (e.Key - Key.D0));
-            //    UpdateList(character);
-            //}
-            //else if (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
-            //{
-            //    char character = (char)('0' + (e.Key - Key.NumPad0));
-            //    UpdateList(character);
-            //}
-
-        }
-
-        //private void Grid_TextInput(object sender, TextCompositionEventArgs e)
-        //{
-        //    Char keyChar = (Char)System.Text.Encoding.ASCII.GetBytes(e.Text)[0];
-        //    Debug.WriteLine(keyChar);
-        //}
-
-        public void ClearGrid()
-        {
-            myGrid.Children.Clear();
-        }
-
         public void CreateNewRow(int currentRow, string word)
         {
             currentLabel = new Label();
-            //labelArray[currentRow] = currentLabel;
-            myGrid.Children.Add(currentLabel);
             currentLabel.SetValue(Grid.RowProperty, currentRow);
             currentLabel.Content = word;
             currentRow++;
@@ -106,16 +56,28 @@ namespace WPF_project
 
         private void inputTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            int currentRow = 1;
             string myText = inputTextBox.Text;
-            string[] wordList = myText.Split(' ');
-            ClearGrid();
-            foreach (string word in wordList)
+            string[] wordStringList = myText.Split(' ');
+            myGrid.Items.Clear();
+            foreach (string word in wordStringList)
             {
-                CreateNewRow(currentRow, word);
-                currentRow++;
+                Word newWord = new Word(word, word.Length);
+                myGrid.Items.Add(newWord);
             }
-            currentRow = 1;
+            myGrid.Items.Refresh();
+        }
+
+
+        public class Word
+        {
+            public string WordText { get; set; }
+            public int Length { get; set; }
+
+            public Word(string word, int length)
+            {
+                WordText = word;
+                Length = length;
+            }
         }
     }
 }

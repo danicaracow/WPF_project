@@ -9,42 +9,26 @@
     <StackPanel Margin="20">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <TextBox x:Name="inputTextBox" Width="200" TextChanged="inputTextBox_TextChanged">
-                
+
             </TextBox>
             <Button x:Name="reverseButton" Click="reverseButton_Click">
                 Reverse
             </Button>
         </StackPanel>
-        <Grid x:Name="myGrid">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
 
-            <Label Content="word">
+        <DataGrid x:Name="myGrid" Height="375">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="word" Binding="{Binding WordText}">
+                    
+                </DataGridTextColumn>
 
-            </Label>
-            <Label Grid.Column ="1" Content="length">
+                <DataGridTextColumn Header="length" Binding="{Binding Length}">
 
-            </Label>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
 
 
-        </Grid>
+
+        </DataGrid>
     </StackPanel>
 </Window>
