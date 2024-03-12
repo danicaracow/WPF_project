@@ -29,7 +29,7 @@ namespace WPF_project
         {
             InitializeComponent();
 
-            CreateNewRow();
+            //CreateNewRow(0);
             
         }
 
@@ -54,25 +54,25 @@ namespace WPF_project
             //    UpdateList(((Char)e.Key));
             //}
 
-            if (e.Key == Key.Space)
-            {
-                CreateNewRow();
-            }
-            else if (e.Key >= Key.A && e.Key <= Key.Z)
-            {
-                char character = (char)('A' + (e.Key - Key.A));
-                UpdateList(character);
-            }
-            else if (e.Key >= Key.D0 && e.Key <= Key.D9)
-            {
-                char character = (char)('0' + (e.Key - Key.D0));
-                UpdateList(character);
-            }
-            else if (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
-            {
-                char character = (char)('0' + (e.Key - Key.NumPad0));
-                UpdateList(character);
-            }
+            //if (e.Key == Key.Space)
+            //{
+            //    CreateNewRow();
+            //}
+            //else if (e.Key >= Key.A && e.Key <= Key.Z)
+            //{
+            //    char character = (char)('A' + (e.Key - Key.A));
+            //    UpdateList(character);
+            //}
+            //else if (e.Key >= Key.D0 && e.Key <= Key.D9)
+            //{
+            //    char character = (char)('0' + (e.Key - Key.D0));
+            //    UpdateList(character);
+            //}
+            //else if (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+            //{
+            //    char character = (char)('0' + (e.Key - Key.NumPad0));
+            //    UpdateList(character);
+            //}
 
         }
 
@@ -82,12 +82,18 @@ namespace WPF_project
         //    Debug.WriteLine(keyChar);
         //}
 
-        public void CreateNewRow()
+        public void ClearGrid()
+        {
+            myGrid.Children.Clear();
+        }
+
+        public void CreateNewRow(int currentRow, string word)
         {
             currentLabel = new Label();
-            labelArray[currentRow] = currentLabel;
+            //labelArray[currentRow] = currentLabel;
             myGrid.Children.Add(currentLabel);
             currentLabel.SetValue(Grid.RowProperty, currentRow);
+            currentLabel.Content = word;
             currentRow++;
 
         }
@@ -96,6 +102,20 @@ namespace WPF_project
         {
             string currentLabelText = currentLabel.Content as string;
             currentLabel.Content = currentLabelText + newchar;
+        }
+
+        private void inputTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            int currentRow = 1;
+            string myText = inputTextBox.Text;
+            string[] wordList = myText.Split(' ');
+            ClearGrid();
+            foreach (string word in wordList)
+            {
+                CreateNewRow(currentRow, word);
+                currentRow++;
+            }
+            currentRow = 1;
         }
     }
 }

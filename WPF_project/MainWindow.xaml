@@ -8,7 +8,7 @@
         Title="MainWindow" Height="450" Width="800">
     <StackPanel Margin="20">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <TextBox x:Name="inputTextBox" Width="200" KeyDown="inputTextBox_KeyDown" PreviewKeyDown="inputTextBox_KeyDown">
+            <TextBox x:Name="inputTextBox" Width="200" TextChanged="inputTextBox_TextChanged">
                 
             </TextBox>
             <Button x:Name="reverseButton" Click="reverseButton_Click">
@@ -38,7 +38,7 @@
             </Grid.RowDefinitions>
 
             <Label Content="word">
-                
+
             </Label>
             <Label Grid.Column ="1" Content="length">
 
