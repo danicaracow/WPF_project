@@ -66,5 +66,6 @@ namespace WPF_project
         {
             return text.Split(' ');
         }
+
     }
 }
