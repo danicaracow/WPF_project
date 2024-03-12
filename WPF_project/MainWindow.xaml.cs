@@ -22,51 +22,10 @@ namespace WPF_project
     /// </summary>
     public partial class MainWindow : Window
     {
-        Label[] labelArray = null;
-        Label currentLabel;
         public MainWindow()
         {
             InitializeComponent();
         }
-
-        private void reverseButton_Click(object sender, RoutedEventArgs e)
-        {
-            Array.Reverse(labelArray);
-
-            foreach (Label label in labelArray)
-            {
-               
-            }
-        }
-
-        public void CreateNewRow(int currentRow, string word)
-        {
-            currentLabel = new Label();
-            currentLabel.SetValue(Grid.RowProperty, currentRow);
-            currentLabel.Content = word;
-            currentRow++;
-
-        }
-
-        public void UpdateList(char newchar)
-        {
-            string currentLabelText = currentLabel.Content as string;
-            currentLabel.Content = currentLabelText + newchar;
-        }
-
-        private void inputTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            string myText = inputTextBox.Text;
-            string[] wordStringList = myText.Split(' ');
-            myGrid.Items.Clear();
-            foreach (string word in wordStringList)
-            {
-                Word newWord = new Word(word, word.Length);
-                myGrid.Items.Add(newWord);
-            }
-            myGrid.Items.Refresh();
-        }
-
 
         public class Word
         {
@@ -78,6 +37,34 @@ namespace WPF_project
                 WordText = word;
                 Length = length;
             }
+        }
+
+        private void inputTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            myGrid.Items.Clear();
+            string[] wordStringList = GetSplitText(inputTextBox.Text);
+            foreach (string word in wordStringList)
+            {
+                Word newWord = new Word(word, word.Length);
+                myGrid.Items.Add(newWord);
+            }
+        }
+
+        private void reverseButton_Click(object sender, RoutedEventArgs e)
+        {
+            string[] wordStringList = GetSplitText(inputTextBox.Text);
+
+            Array.Reverse(wordStringList);
+            string reversedText = String.Join(" ", wordStringList);
+
+            myGrid.Items.Clear();
+            inputTextBox.Clear();
+            inputTextBox.Text = reversedText;
+        }
+
+        private string[] GetSplitText(string text)
+        {
+            return text.Split(' ');
         }
     }
 }
